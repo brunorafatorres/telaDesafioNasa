@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simulador de Impacto de Asteroides - NASA Challenge</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+</head>
+
+<body>
+    <div class="language-selector">
+        <button class="lang-btn active" data-lang="pt">PT</button>
+        <button class="lang-btn" data-lang="en">EN</button>
+        <button class="lang-btn" data-lang="es">ES</button>
+    </div>
+
+    <header class="header">
+        <div class="container">
+            <div class="logo">
+                <img src="images/nasalogo.png" alt="NASA" class="nasa-logo">
+                <h1 data-translate="site_title">Simulador de Impacto de Asteroides</h1>
+            </div>
+        </div>
+    </header>
+
+    <main class="main-content">
+        <section id="simulacao" class="simulation-section">
+            <div class="container">
+                <h2 data-translate="simulation_title">Simulador de Impacto</h2>
+                
+                <div class="simulation-container">
+                    <div class="control-panel">
+                        <h3 data-translate="simulation_params">Parâmetros do Asteroide</h3>
+                        
+                        <div class="parameter-group">
+                            <label for="asteroid-size" data-translate="param_size">Tamanho (diâmetro em metros)</label>
+                            <input type="range" id="asteroid-size" min="10" max="1000" value="100">
+                            <span id="size-value">100 m</span>
+                        </div>
+                        
+                        <div class="parameter-group">
+                            <label for="asteroid-velocity" data-translate="param_velocity">Velocidade (km/s)</label>
+                            <input type="range" id="asteroid-velocity" min="5" max="30" value="17">
+                            <span id="velocity-value">17 km/s</span>
+                        </div>
+                        
+                        <div class="parameter-group">
+                            <label for="asteroid-composition" data-translate="param_composition">Composição</label>
+                            <select id="asteroid-composition">
+                                <option value="rocky" data-translate="comp_rocky">Rochoso (densidade: 2.7 g/cm³)</option>
+                                <option value="metallic" data-translate="comp_metallic">Metálico (densidade: 7.9 g/cm³)</option>
+                                <option value="icy" data-translate="comp_icy">Gelado (densidade: 1.0 g/cm³)</option>
+                            </select>
+                        </div>
+                        
+                        <div class="parameter-group">
+                            <label for="impact-angle" data-translate="param_angle">Ângulo de Impacto</label>
+                            <input type="range" id="impact-angle" min="0" max="90" value="45">
+                            <span id="angle-value">45°</span>
+                        </div>
+                        
+                        <div class="parameter-group">
+                            <label for="impact-location" data-translate="param_location">Local de Impacto</label>
+                            <select id="impact-location">
+                                <option value="ocean" data-translate="loc_ocean">Oceano</option>
+                                <option value="continent" data-translate="loc_continent">Continente</option>
+                                <option value="urban" data-translate="loc_urban">Área Urbana</option>
+                                <option value="custom" data-translate="loc_custom">Personalizado</option>
+                            </select>
+                        </div>
+                        
+                        <button id="run-simulation" class="simulate-button" data-translate="simulate_button">Executar Simulação</button>
+                    </div>
+                    
+                    <!-- Área de visualização -->
+                    <div class="visualization-area">
+                        <div class="visualization-tabs">
+                            <button class="tab-button active" data-tab="orbit" data-translate="tab_orbit">Órbita</button>
+                            <button class="tab-button" data-tab="impact" data-translate="tab_impact">Impacto</button>
+                            <button class="tab-button" data-tab="effects" data-translate="tab_effects">Efeitos</button>
+                        </div>
+                        
+                        <div class="visualization-container">
+                            <div id="orbit-visualization" class="tab-content active">
+                                <div class="orbit-simulation">
+                                    <div class="orbit-info">
+                                        <p data-translate="orbit_info">Visualização da trajetória do asteroide em relação à Terra</p>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div id="impact-visualization" class="tab-content">
+                                <div class="impact-map">    
+                                    <div class="map-info">
+                                        <p data-translate="impact_info">Zona de impacto potencial baseada em cálculos de trajetória</p>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div id="effects-visualization" class="tab-content">
+                                <div class="effects-grid">
+                                    <div class="effect-card">
+                                        <h4 data-translate="effect_crater">Cratera</h4>
+                                        <div class="effect-value" id="crater-size">-</div>
+                                        <div class="effect-description" data-translate="effect_crater_desc">Diâmetro estimado da cratera</div>
+                                    </div>
+                                    <div class="effect-card">
+                                        <h4 data-translate="effect_energy">Energia Liberada</h4>
+                                        <div class="effect-value" id="energy-release">-</div>
+                                        <div class="effect-description" data-translate="effect_energy_desc">Equivalente em TNT</div>
+                                    </div>
+                                    <div class="effect-card">
+                                        <h4 data-translate="effect_seismic">Magnitude Sísmica</h4>
+                                        <div class="effect-value" id="seismic-magnitude">-</div>
+                                        <div class="effect-description" data-translate="effect_seismic_desc">Escala Richter</div>
+                                    </div>
+                                    <div class="effect-card">
+                                        <h4 data-translate="effect_tsunami">Altura do Tsunami</h4>
+                                        <div class="effect-value" id="tsunami-height">-</div>
+                                        <div class="effect-description" data-translate="effect_tsunami_desc">Em impactos oceânicos</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+    <!-- Rodapé -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3 data-translate="footer_title">Simulador de Impacto de Asteroides</h3>
+                    <p data-translate="footer_description">Uma ferramenta educacional desenvolvida para o NASA Challenge</p>
+                </div>
+                
+                <div class="footer-section">
+                    <h3 data-translate="footer_sources">Fontes de Dados</h3>
+                    <ul>
+                        <li><a href="https://api.nasa.gov/" target="_blank">NASA NEO API</a></li>
+                        <li><a href="https://www.usgs.gov/" target="_blank">USGS Data</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h3 data-translate="footer_contact">Contato</h3>
+                    <p>brunotorres.sl024@academico.ifusl.edu.br</p>
+                    <p>williammeireles.sl007@academico.ifsul.edu.br</p>
+                    <p>marcosschlick.sl003@academico.ifsul.edu.br</p>
+                    <p>maximelo66@gmail.com</p>
+                    <p>maurecarvalho22@gmail.com</p>
+                    <p>bernardo.ribeiro@outlook.com.br</p>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2025 NASA Challenge - <span data-translate="footer_copyright"> Desenvolvido para fins educacionais </span><span> - Tuxonauts</span></p>
+            </div>
+        </div>  
+    </footer>
+
+    <!-- Scripts JavaScript -->
+    <script src="script.js"></script>
+    <script src="translations.js"></script>
+</body>
+</html>
