@@ -1,4 +1,3 @@
-/* Reset e configurações básicas */
 * {
     margin: 0;
     padding: 0;
@@ -6,24 +5,24 @@
 }
 
 :root {
-    --primary-color: #0b3d91;
-    --secondary-color: #fc3d21;
-    --accent-color: #1e88e5;
-    --dark-color: #1a237e;
-    --light-color: #e3f2fd;
-    --text-color: #333;
-    --text-light: #fff;
-    --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    --border-radius: 8px;
-    --transition: all 0.3s ease;
+    --cor-primaria: #0b3d91;
+    --cor-secundaria: #fc3d21;
+    --cor-destaque: #1e88e5;
+    --cor-escura: #1a237e;
+    --cor-clara: #e3f2fd;
+    --cor-texto: #333;
+    --cor-texto-claro: #fff;
+    --sombra: 0 4px 6px rgba(0, 0, 0, 0.1);
+    --borda-arredondada: 8px;
+    --transicao: all 0.3s ease;
 }
 
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     line-height: 1.6;
-    color: var(--text-color);
+    color: var(--cor-texto);
     background-color: #f5f5f5;
-    transition: var(--transition);
+    transition: var(--transicao);
 }
 
 .container {
@@ -34,7 +33,7 @@ body {
 }
 
 /* Seletor de Idioma */
-.language-selector {
+.seletor-idioma {
     position: fixed;
     top: 50%;
     right: 20px;
@@ -46,49 +45,49 @@ body {
     background: rgba(255, 255, 255, 0.9);
     padding: 12px 8px;
     border-radius: 20px;
-    box-shadow: var(--shadow);
+    box-shadow: var(--sombra);
     backdrop-filter: blur(10px);
-     transition: background-color 0.3s;
+    transition: background-color 0.3s;
 }
 
-.language-selector:hover{
+.seletor-idioma:hover {
     background: rgba(0, 0, 0, 1);
 }
 
-.lang-btn {
+.botao-idioma {
     padding: 8px 12px;
     border: none;
     border-radius: 15px;
     background: transparent;
-    color: var(--primary-color);
+    color: var(--cor-primaria);
     cursor: pointer;
     font-weight: 600;
-    transition: var(--transition);
+    transition: var(--transicao);
     width: 45px;
     text-align: center;
 }
 
-.lang-btn.active {
-    background: var(--primary-color);
+.botao-idioma.ativo {
+    background: var(--cor-primaria);
     color: white;
 }
 
-.lang-btn:hover:not(.active) {
-    background: var(--light-color);
+.botao-idioma:hover:not(.ativo) {
+    background: var(--cor-clara);
 }
 
 /* Cabeçalho */
-.header {
-    background-color: var(--primary-color);
-    color: var(--text-light);
+.cabecalho {
+    background-color: var(--cor-primaria);
+    color: var(--cor-texto-claro);
     padding: 1rem 0;
-    box-shadow: var(--shadow);
+    box-shadow: var(--sombra);
     position: sticky;
     top: 0;
     z-index: 100;
 }
 
-.header .container {
+.cabecalho .container {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -100,7 +99,7 @@ body {
     gap: 15px;
 }
 
-.nasa-logo {
+.logo-nasa {
     height: 100px;
 }
 
@@ -109,69 +108,69 @@ body {
 }
 
 /* Seção principal */
-.main-content {
+.conteudo-principal {
     padding: 3rem 0;
 }
 
-.simulation-section {
+.secao-simulacao {
     background-color: white;
-    border-radius: var(--border-radius);
+    border-radius: var(--borda-arredondada);
     padding: 2rem;
     margin-bottom: 3rem;
-    box-shadow: var(--shadow);
+    box-shadow: var(--sombra);
 }
 
-.simulation-section h2 {
+.secao-simulacao h2 {
     margin-bottom: 2rem;
-    color: var(--primary-color);
+    color: var(--cor-primaria);
     text-align: center;
 }
 
-.simulation-container {
+.container-simulacao {
     display: grid;
     grid-template-columns: 1fr 2fr;
     gap: 2rem;
 }
 
 /* Painel de controle */
-.control-panel {
-    background-color: var(--light-color);
+.painel-controle {
+    background-color: var(--cor-clara);
     padding: 1.5rem;
-    border-radius: var(--border-radius);
+    border-radius: var(--borda-arredondada);
     height: fit-content;
 }
 
-.control-panel h3 {
+.painel-controle h3 {
     margin-bottom: 1.5rem;
-    color: var(--primary-color);
-    border-bottom: 2px solid var(--accent-color);
+    color: var(--cor-primaria);
+    border-bottom: 2px solid var(--cor-destaque);
     padding-bottom: 0.5rem;
 }
 
-.parameter-group {
+.grupo-parametro {
     margin-bottom: 1.5rem;
 }
 
-.parameter-group label {
+.grupo-parametro label {
     display: block;
     margin-bottom: 0.5rem;
     font-weight: 500;
 }
 
-.parameter-group input[type="range"] {
+.grupo-parametro input[type="range"] {
     width: 100%;
     margin-bottom: 0.5rem;
 }
 
-.parameter-group span {
+.grupo-parametro span {
     display: inline-block;
     width: 100%;
     text-align: right;
     font-weight: bold;
-    color: var(--primary-color);
+    color: var(--cor-primaria);
 }
 
-.parameter-group select {
+.grupo-parametro select {
     width: 100%;
     padding: 8px;
     border: 1px solid #ccc;
@@ -179,37 +178,37 @@ body {
     background-color: white;
 }
 
-.simulate-button {
+.botao-simular {
     width: 100%;
-    background-color: var(--primary-color);
+    background-color: var(--cor-primaria);
     color: white;
     border: none;
     padding: 12px;
     font-size: 1.1rem;
-    border-radius: var(--border-radius);
+    border-radius: var(--borda-arredondada);
     cursor: pointer;
     transition: background-color 0.3s;
     margin-top: 1rem;
 }
 
-.simulate-button:hover {
-    background-color: var(--dark-color);
+.botao-simular:hover {
+    background-color: var(--cor-escura);
     transform: translateY(-2px);
 }
 
 /* Área de visualização */
-.visualization-area {
+.area-visualizacao {
     border: 1px solid #ddd;
-    border-radius: var(--border-radius);
+    border-radius: var(--borda-arredondada);
     overflow: hidden;
 }
 
-.visualization-tabs {
+.abas-visualizacao {
     display: flex;
-    background-color: var(--light-color);
+    background-color: var(--cor-clara);
 }
 
-.tab-button {
+.botao-aba {
     flex: 1;
     padding: 12px;
     background: none;
@@ -219,33 +218,33 @@ body {
     transition: background-color 0.3s;
 }
 
-.tab-button.active {
-    background-color: var(--accent-color);
+.botao-aba.ativo {
+    background-color: var(--cor-destaque);
     color: white;
 }
 
-.tab-button:hover:not(.active) {
+.botao-aba:hover:not(.ativo) {
     background-color: #bbdefb;
 }
 
-.visualization-container {
+.container-visualizacao {
     height: 500px;
     position: relative;
 }
 
-.tab-content {
+.conteudo-aba {
     display: none;
     height: 100%;
     width: 100%;
     padding: 1rem;
 }
 
-.tab-content.active {
+.conteudo-aba.ativo {
     display: block;
 }
 
 /* Simulação de Órbita */
-.orbit-simulation {
+.simulacao-orbita {
     height: 100%;
     display: flex;
     flex-direction: column;
@@ -253,125 +252,13 @@ body {
     justify-content: center;
 }
 
-.solar-system {
-    width: 300px;
-    height: 300px;
-    position: relative;
-    margin-bottom: 1rem;
-}
-
-.sun {
-    width: 40px;
-    height: 40px;
-    background: #ff9800;
-    border-radius: 50%;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    box-shadow: 0 0 20px #ff9800;
-}
-
-.earth-orbit {
-    width: 200px;
-    height: 200px;
-    border: 1px solid rgba(0, 0, 0, 0.1);
-    border-radius: 50%;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    animation: rotate 20s linear infinite;
-}
-
-.earth-planet {
-    width: 20px;
-    height: 20px;
-    background: var(--accent-color);
-    border-radius: 50%;
-    position: absolute;
-    top: 0;
-    left: 50%;
-    transform: translateX(-50%);
-}
-
-.asteroid-path {
-    width: 250px;
-    height: 150px;
-    border: 1px dashed var(--secondary-color);
-    border-radius: 50%;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-}
-
-.asteroid-sim {
-    width: 12px;
-    height: 12px;
-    background: var(--secondary-color);
-    border-radius: 50%;
-    position: absolute;
-    top: 0;
-    left: 50%;
-    transform: translateX(-50%);
-    animation: asteroid-move 6s linear infinite;
-}
-
-@keyframes rotate {
-    0% { transform: translate(-50%, -50%) rotate(0deg); }
-    100% { transform: translate(-50%, -50%) rotate(360deg); }
-}
-
-@keyframes asteroid-move {
-    0% { transform: translateX(-50%) rotate(0deg) translateY(-75px) rotate(0deg); }
-    100% { transform: translateX(-50%) rotate(360deg) translateY(-75px) rotate(-360deg); }
-}
-
-/* Mapa de Impacto */
-.impact-map {
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-}
-
-.world-map {
-    width: 300px;
-    height: 150px;
-    background: linear-gradient(45deg, #4caf50, #8bc34a);
-    border-radius: 50%;
-    position: relative;
-    overflow: hidden;
-    margin-bottom: 1rem;
-}
-
-.impact-zone {
-    width: 50px;
-    height: 50px;
-    background: radial-gradient(circle, var(--secondary-color), transparent);
-    border-radius: 50%;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    animation: pulse 2s infinite;
-}
-
-@keyframes pulse {
-    0% { transform: translate(-50%, -50%) scale(1); opacity: 1; }
-    50% { transform: translate(-50%, -50%) scale(1.2); opacity: 0.7; }
-    100% { transform: translate(-50%, -50%) scale(1); opacity: 1; }
-}
-
-.orbit-info, .map-info {
+.info-orbita, .info-mapa {
     text-align: center;
     color: #666;
     font-style: italic;
 }
 
-.effects-grid {
+.grade-efeitos {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 1rem;
@@ -379,73 +266,73 @@ body {
     height: 100%;
 }
 
-.effect-card {
-    background-color: var(--light-color);
-    border-radius: var(--border-radius);
+.cartao-efeito {
+    background-color: var(--cor-clara);
+    border-radius: var(--borda-arredondada);
     padding: 1rem;
     text-align: center;
-    box-shadow: var(--shadow);
+    box-shadow: var(--sombra);
     transition: transform 0.3s;
 }
 
-.effect-card:hover {
+.cartao-efeito:hover {
     transform: translateY(-5px);
 }
 
-.effect-card h4 {
-    color: var(--primary-color);
+.cartao-efeito h4 {
+    color: var(--cor-primaria);
     margin-bottom: 0.5rem;
 }
 
-.effect-value {
+.valor-efeito {
     font-size: 1.5rem;
     font-weight: bold;
-    color: var(--secondary-color);
+    color: var(--cor-secundaria);
     margin-bottom: 0.5rem;
 }
 
-.effect-description {
+.descricao-efeito {
     font-size: 0.9rem;
     color: #666;
 }
 
 /* Rodapé */
-.footer {
-    background-color: var(--dark-color);
-    color: var(--text-light);
+.rodape {
+    background-color: var(--cor-escura);
+    color: var(--cor-texto-claro);
     padding: 3rem 0 1rem;
 }
 
-.footer-content {
+.conteudo-rodape {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 2rem;
     margin-bottom: 2rem;
 }
 
-.footer-section h3 {
+.secao-rodape h3 {
     margin-bottom: 1rem;
-    color: var(--secondary-color);
+    color: var(--cor-secundaria);
 }
 
-.footer-section ul {
+.secao-rodape ul {
     list-style: none;
 }
 
-.footer-section li {
+.secao-rodape li {
     margin-bottom: 0.5rem;
 }
 
-.footer-section a {
-    color: var(--text-light);
+.secao-rodape a {
+    color: var(--cor-texto-claro);
     text-decoration: none;
 }
 
-.footer-section a:hover {
+.secao-rodape a:hover {
     text-decoration: underline;
 }
 
-.footer-bottom {
+.rodape-inferior {
     text-align: center;
     padding-top: 1rem;
     border-top: 1px solid rgba(255, 255, 255, 0.1);
@@ -453,48 +340,38 @@ body {
 
 /* Responsividade */
 @media (max-width: 992px) {
-    .simulation-container {
+    .container-simulacao {
         grid-template-columns: 1fr;
     }
     
-    .effects-grid {
+    .grade-efeitos {
         grid-template-columns: 1fr;
     }
     
-    .footer-content {
+    .conteudo-rodape {
         grid-template-columns: 1fr;
         text-align: center;
     }
 }
 
 @media (max-width: 768px) {
-    .header .container {
+    .cabecalho .container {
         flex-direction: column;
         gap: 1rem;
     }
     
-    .language-selector {
+    .seletor-idioma {
         top: 70px;
         right: 10px;
         flex-direction: column;
     }
 }
 
-/* Acessibilidade */
+/* Acessibilidade - reduzir movimento */
 @media (prefers-reduced-motion: reduce) {
     * {
         animation-duration: 0.01ms !important;
         animation-iteration-count: 1 !important;
         transition-duration: 0.01ms !important;
-    }
-}
-
-/* Alto contraste para melhor legibilidade */
-@media (prefers-contrast: high) {
-    :root {
-        --primary-color: #000080;
-        --secondary-color: #b22222;
-        --accent-color: #0000cd;
-        --text-color: #000;
     }
 }

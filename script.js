@@ -1,146 +1,141 @@
 // Funções principais do simulador
 document.addEventListener('DOMContentLoaded', function() {
     // Configurar controles deslizantes
-    setupSliders();
+    configurarControlesDeslizantes();
     
     // Configurar abas
-    setupTabs();
+    configurarAbas();
     
     // Configurar botão de simulação
-    setupSimulationButton();
+    configurarBotaoSimulacao();
 });
 
-function setupSliders() {
-    const sizeSlider = document.getElementById('asteroid-size');
-    const velocitySlider = document.getElementById('asteroid-velocity');
-    const angleSlider = document.getElementById('impact-angle');
+function configurarControlesDeslizantes() {
+    const controleTamanho = document.getElementById('asteroid-size');
+    const controleVelocidade = document.getElementById('asteroid-velocity');
+    const controleAngulo = document.getElementById('impact-angle');
     
-    const sizeValue = document.getElementById('size-value');
-    const velocityValue = document.getElementById('velocity-value');
-    const angleValue = document.getElementById('angle-value');
+    const valorTamanho = document.getElementById('valor-tamanho');
+    const valorVelocidade = document.getElementById('valor-velocidade');
+    const valorAngulo = document.getElementById('valor-angulo');
     
-    sizeSlider.addEventListener('input', function() {
-        sizeValue.textContent = `${this.value} m`;
+    controleTamanho.addEventListener('input', function() {
+        valorTamanho.textContent = `${this.value} m`;
     });
     
-    velocitySlider.addEventListener('input', function() {
-        velocityValue.textContent = `${this.value} km/s`;
+    controleVelocidade.addEventListener('input', function() {
+        valorVelocidade.textContent = `${this.value} km/s`;
     });
     
-    angleSlider.addEventListener('input', function() {
-        angleValue.textContent = `${this.value}°`;
+    controleAngulo.addEventListener('input', function() {
+        valorAngulo.textContent = `${this.value}°`;
     });
 }
 
-function setupTabs() {
-    const tabButtons = document.querySelectorAll('.tab-button');
-    const tabContents = document.querySelectorAll('.tab-content');
+function configurarAbas() {
+    const botoesAbas = document.querySelectorAll('.botao-aba');
+    const conteudosAbas = document.querySelectorAll('.conteudo-aba');
     
-    tabButtons.forEach(button => {
-        button.addEventListener('click', function() {
-            const tabId = this.getAttribute('data-tab');
+    botoesAbas.forEach(botao => {
+        botao.addEventListener('click', function() {
+            const idAba = this.getAttribute('data-tab');
             
-            // Remover classe active de todos os botões e conteúdos
-            tabButtons.forEach(btn => btn.classList.remove('active'));
-            tabContents.forEach(content => content.classList.remove('active'));
+            // Remover classe ativo de todos os botões e conteúdos
+            botoesAbas.forEach(btn => btn.classList.remove('ativo'));
+            conteudosAbas.forEach(conteudo => conteudo.classList.remove('ativo'));
             
-            // Adicionar classe active ao botão e conteúdo atual
-            this.classList.add('active');
-            document.getElementById(`${tabId}-visualization`).classList.add('active');
+            // Adicionar classe ativo ao botão e conteúdo atual
+            this.classList.add('ativo');
+            document.getElementById(`visualizacao-${idAba}`).classList.add('ativo');
         });
     });
 }
 
-function setupSimulationButton() {
-    const simulateButton = document.getElementById('run-simulation');
+function configurarBotaoSimulacao() {
+    const botaoSimular = document.getElementById('executar-simulacao');
     
-    simulateButton.addEventListener('click', function() {
+    botaoSimular.addEventListener('click', function() {
         // Coletar parâmetros
-        const size = document.getElementById('asteroid-size').value;
-        const velocity = document.getElementById('asteroid-velocity').value;
-        const composition = document.getElementById('asteroid-composition').value;
-        const angle = document.getElementById('impact-angle').value;
-        const location = document.getElementById('impact-location').value;
+        const tamanho = document.getElementById('asteroid-size').value;
+        const velocidade = document.getElementById('asteroid-velocity').value;
+        const composicao = document.getElementById('asteroid-composition').value;
+        const angulo = document.getElementById('impact-angle').value;
+        const localizacao = document.getElementById('impact-location').value;
         
         // Executar simulação
-        runSimulation(size, velocity, composition, angle, location);
+        executarSimulacao(tamanho, velocidade, composicao, angulo, localizacao);
     });
 }
 
-function runSimulation(size, velocity, composition, angle, location) {
+function executarSimulacao(tamanho, velocidade, composicao, angulo, localizacao) {
     // Calcular efeitos do impacto
-    const energy = calculateImpactEnergy(size, velocity, composition);
-    const craterSize = calculateCraterSize(energy);
-    const seismicMagnitude = calculateSeismicMagnitude(energy);
-    const tsunamiHeight = calculateTsunamiHeight(energy, location);
+    const energia = calcularEnergiaImpacto(tamanho, velocidade, composicao);
+    const tamanhoCratera = calcularTamanhoCratera(energia);
+    const magnitudeSismica = calcularMagnitudeSismica(energia);
+    const alturaTsunami = calcularAlturaTsunami(energia, localizacao);
     
     // Atualizar interface
-    document.getElementById('crater-size').textContent = `${craterSize.toFixed(1)} km`;
-    document.getElementById('energy-release').textContent = formatEnergy(energy);
-    document.getElementById('seismic-magnitude').textContent = `M ${seismicMagnitude.toFixed(1)}`;
-    document.getElementById('tsunami-height').textContent = location === 'ocean' ? `${tsunamiHeight.toFixed(1)} m` : 'N/A';
+    document.getElementById('tamanho-cratera').textContent = `${tamanhoCratera.toFixed(1)} km`;
+    document.getElementById('energia-liberada').textContent = formatarEnergia(energia);
+    document.getElementById('magnitude-sismica').textContent = `M ${magnitudeSismica.toFixed(1)}`;
+    document.getElementById('altura-tsunami').textContent = localizacao === 'ocean' ? `${alturaTsunami.toFixed(1)} m` : 'N/A';
     
     // Mostrar aba de efeitos
-    document.querySelectorAll('.tab-button').forEach(btn => btn.classList.remove('active'));
-    document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
+    document.querySelectorAll('.botao-aba').forEach(btn => btn.classList.remove('ativo'));
+    document.querySelectorAll('.conteudo-aba').forEach(conteudo => conteudo.classList.remove('ativo'));
     
-    document.querySelector('[data-tab="effects"]').classList.add('active');
-    document.getElementById('effects-visualization').classList.add('active');
+    document.querySelector('[data-tab="efeitos"]').classList.add('ativo');
+    document.getElementById('visualizacao-efeitos').classList.add('ativo');
 }
 
-function calculateImpactEnergy(size, velocity, composition) {
+function calcularEnergiaImpacto(tamanho, velocidade, composicao) {
     // Calcular massa baseada no tamanho e composição
-    const radius = size / 2; // metros
-    let density;
+    const raio = tamanho / 2; // metros
+    let densidade;
     
-    switch(composition) {
-        case 'rocky': density = 2700; break; // kg/m³
-        case 'metallic': density = 7900; break;
-        case 'icy': density = 1000; break;
-        default: density = 2700;
+    switch(composicao) {
+        case 'rocky': densidade = 2700; break; // kg/m³
+        case 'metallic': densidade = 7900; break;
+        case 'icy': densidade = 1000; break;
+        default: densidade = 2700;
     }
     
-    const volume = (4/3) * Math.PI * Math.pow(radius, 3);
-    const mass = volume * density; // kg
+    const volume = (4/3) * Math.PI * Math.pow(raio, 3);
+    const massa = volume * densidade; // kg
     
     // Energia cinética: E = 1/2 * m * v²
-    const energyJoules = 0.5 * mass * Math.pow(velocity * 1000, 2); // Joules
+    const energiaJoules = 0.5 * massa * Math.pow(velocidade * 1000, 2); // Joules
     
     // Converter para equivalente em TNT (1 ton TNT = 4.184e9 J)
-    return energyJoules / 4.184e9; // toneladas de TNT
+    return energiaJoules / 4.184e9; // toneladas de TNT
 }
 
-function calculateCraterSize(energyTNT) {
+function calcularTamanhoCratera(energiaTNT) {
     // Fórmula simplificada para estimar tamanho da cratera
-    return 0.07 * Math.pow(energyTNT / 1000, 0.294); // km
+    return 0.07 * Math.pow(energiaTNT / 1000, 0.294); // km
 }
 
-function calculateSeismicMagnitude(energyTNT) {
+function calcularMagnitudeSismica(energiaTNT) {
     // Relação aproximada entre energia e magnitude sísmica
-    return 0.67 * Math.log10(energyTNT * 4.184e9) - 5.87;
+    return 0.67 * Math.log10(energiaTNT * 4.184e9) - 5.87;
 }
 
-function calculateTsunamiHeight(energyTNT, location) {
-    if (location !== 'ocean') return 0;
+function calcularAlturaTsunami(energiaTNT, localizacao) {
+    if (localizacao !== 'ocean') return 0;
     
     // Estimativa simplificada da altura do tsunami
-    return 0.5 * Math.pow(energyTNT / 1e6, 0.25) * 100; // metros
+    return 0.5 * Math.pow(energiaTNT / 1e6, 0.25) * 100; // metros
 }
 
-function formatEnergy(energyTNT) {
-    if (energyTNT >= 1e9) {
-        return `${(energyTNT / 1e9).toFixed(1)} Gt TNT`;
-    } else if (energyTNT >= 1e6) {
-        return `${(energyTNT / 1e6).toFixed(1)} Mt TNT`;
-    } else if (energyTNT >= 1e3) {
-        return `${(energyTNT / 1e3).toFixed(1)} kt TNT`;
+function formatarEnergia(energiaTNT) {
+    if (energiaTNT >= 1e9) {
+        return `${(energiaTNT / 1e9).toFixed(1)} Gt TNT`;
+    } else if (energiaTNT >= 1e6) {
+        return `${(energiaTNT / 1e6).toFixed(1)} Mt TNT`;
+    } else if (energiaTNT >= 1e3) {
+        return `${(energiaTNT / 1e3).toFixed(1)} kt TNT`;
     } else {
-        return `${energyTNT.toFixed(1)} t TNT`;
+        return `${energiaTNT.toFixed(1)} t TNT`;
     }
 }
 
-function scrollToSection(sectionId) {
-    document.getElementById(sectionId).scrollIntoView({ 
-        behavior: 'smooth' 
-    });
-}
